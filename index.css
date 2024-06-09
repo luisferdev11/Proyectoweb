@@ -12,7 +12,7 @@ body {
 }
 
 .logo img {
-    height: 75px;
+    height: 100px;
 }
 
 .nav-links {
@@ -61,6 +61,8 @@ body {
 .grid-item img {
     max-width: 60%;
     height: auto;
+    width: 40%; 
+
 }
 
 .grid-item p {
@@ -96,13 +98,14 @@ body {
 .gray-section img {
     max-width: 100%;
     height: auto;
+    width: 90%;
 }
 
 .footer {
     background-color: #1E90FF; 
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 30px 0;
     position: fixed;
     width: 100%;
     bottom: 0;
