@@ -60,10 +60,6 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
-
     <div id="course-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -78,6 +74,15 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="factura-details">
+                <h2>Factura del Servicio</h2>
+                <p>ID del Servicio: 001</p>
+                <p>Fecha: 10/06/2024</p>
+                <p>Servicio: Reparación de fugas</p>
+                <p>Plomero: Juan Pérez</p>
+                <p>Dirección: Calle Principal #123</p>
+                <p>Total: $100.00</p>
+                <p>Impuestos: $15.00</p>
+                <p>Total a Pagar: $115.00</p>
             </div>
         </div>
     </div>
@@ -86,9 +91,34 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="cal-details">
+                <h2>Calificar el Servicio</h2>
+                <form>
+                    <label for="rating">Calificación:</label>
+                    <div class="star-rating">
+                        <input type="radio" id="5-stars" name="rating" value="5" />
+                        <label for="5-stars" class="star">&#9733;</label>
+                        <input type="radio" id="4-stars" name="rating" value="4" />
+                        <label for="4-stars" class="star">&#9733;</label>
+                        <input type="radio" id="3-stars" name="rating" value="3" />
+                        <label for="3-stars" class="star">&#9733;</label>
+                        <input type="radio" id="2-stars" name="rating" value="2" />
+                        <label for="2-stars" class="star">&#9733;</label>
+                        <input type="radio" id="1-star" name="rating" value="1" />
+                        <label for="1-star" class="star">&#9733;</label>
+                    </div>
+                    <br>
+                    <label for="comments">Comentarios:</label>
+                    <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                    <br>
+                    <input type="submit" value="Enviar">
+                </form>
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <p></p>
+    </footer>
 
     <script>
         var workerModal = document.getElementById('worker-info-modal');
@@ -117,12 +147,42 @@
             courseModal.style.display = "none";
         }
 
+        var facturaModal = document.getElementById('factura-modal');
+        var facturaBtn = document.getElementsByClassName("factura-btn")[0];
+        var closeFacturaSpan = document.getElementsByClassName("close")[2];
+
+        facturaBtn.onclick = function() {
+            facturaModal.style.display = "block";
+        }
+
+        closeFacturaSpan.onclick = function() {
+            facturaModal.style.display = "none";
+        }
+
+        var calModal = document.getElementById('cal-modal');
+        var calBtn = document.getElementsByClassName("cal-btn")[0];
+        var closeCalSpan = document.getElementsByClassName("close")[3];
+
+        calBtn.onclick = function() {
+            calModal.style.display = "block";
+        }
+
+        closeCalSpan.onclick = function() {
+            calModal.style.display = "none";
+        }
+
         window.onclick = function(event) {
             if (event.target == workerModal) {
                 workerModal.style.display = "none";
             }
             if (event.target == courseModal) {
                 courseModal.style.display = "none";
+            }
+            if (event.target == facturaModal) {
+                facturaModal.style.display = "none";
+            }
+            if (event.target == calModal) {
+                calModal.style.display = "none";
             }
         }
 

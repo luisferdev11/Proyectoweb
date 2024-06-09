@@ -63,7 +63,7 @@
     </div>
 
     <footer class="footer">
-        <p>© 2024 Plomeros SOS. Todos los derechos reservados.</p>
+        <p></p>
     </footer>
 </body>
 </html>
