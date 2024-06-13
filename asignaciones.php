@@ -51,7 +51,7 @@
     </div>
 
     <footer class="footer">
-        <p>© 2024 Empresa de Servicios. Todos los derechos reservados.</p>
+        <p></p>
     </footer>
 </body>
 </html>

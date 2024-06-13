@@ -35,7 +35,7 @@
     </div>
 
     <footer class="footer">
-        <p>© 2024 Empresa de Servicios. Todos los derechos reservados.</p>
+        <p></p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
