@@ -53,7 +53,6 @@
                     </tr>
                 </table>
             </div>
-            <!-- Más tarjetas de reportes pueden ir aquí -->
         </div>
 
         <div class="right-section">
@@ -77,13 +76,13 @@
                     <td>20</td>
                     <td>Litros</td>
                 </tr>
-                <!-- Más filas de inventario pueden ir aquí -->
+              
             </table>
         </div>
     </div>
 
     <footer class="footer">
-        <p>© 2024 Empresa de Servicios. Todos los derechos reservados.</p>
+        <p></p>
     </footer>
 </body>
 </html>
