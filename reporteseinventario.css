@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E90FF;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 100px;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.title {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.left-section, .right-section {
+    width: 48%;
+}
+
+.report-card {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.status {
+    color: green;
+}
+
+.report-card h3 {
+    margin-top: 20px;
+}
+
+.report-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.report-card table, .report-card th, .report-card td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.report-card th {
+    background-color: #e0e0e0;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table, .inventory-table th, .inventory-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.inventory-table th {
+    background-color: #e0e0e0;
+}
+
+.footer {
+    background-color: #1E90FF;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: auto;
+}
