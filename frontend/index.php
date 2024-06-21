@@ -1,22 +1,34 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar y Footer</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
+            <img src="/plomeros-sos/public/images/logo.jpeg" alt="Logo de la Empresa">
         </div>
         <ul class="nav-links">
             <li><a href="index.php">Inicio</a></li>
             <li><a href="registro.php">Registro</a></li>
             <li><a href="InicioS.php">Sesión</a></li>
         </ul>
-    </nav>
+    </nav> -->
+
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PlomerosSOS</title>
+        <link rel="stylesheet" href="/css/index.css">
+        
+</head>
+
+<?php include 'templates/header.php'; ?>
 
     <div class="content">
         <h1 class="text-center">Plomeros SOS</h1>
@@ -38,19 +50,19 @@ Confíe en Plomeros SOS para resolver cualquier problema de plomería con la cal
         
         <div class="grid-container">
             <div class="grid-item">
-                <img src="img/mantenimientotinacos.jpeg" alt="Imagen 1">
+                <img src="images/mantenimientotinacos.jpeg" alt="Imagen 1">
                 <p>Mantenimiento de tinacos</p>
             </div>
             <div class="grid-item">
-                <img src="img/consulta.jpeg" alt="Imagen 2">
+                <img src="images/consulta.jpeg" alt="Imagen 2">
                 <p>Consulta</p>
             </div>
             <div class="grid-item">
-                <img src="img/plomeria.jpeg" alt="Imagen 3">
+                <img src="images/plomeria.jpeg" alt="Imagen 3">
                 <p>Servicio de urgencia</p>
             </div>
             <div class="grid-item">
-                <img src="img/instalacion.jpeg" alt="Imagen 4">
+                <img src="images/instalacion.jpeg" alt="Imagen 4">
                 <p>Instalacion de tinacos</p>
             </div>
         </div>
@@ -73,15 +85,11 @@ Mi problema de fuga de agua fue solucionado de manera eficiente y limpia. El plo
 Recomiendo altamente a Plomeros SOS por su rapidez, profesionalismo y precios justos. Sin duda, acudiré a ellos nuevamente para cualquier necesidad de plomería. ¡Un servicio de cinco estrellas!"</p>
                 </div>
                 <div class="right-side">
-                    <img src="img/plomero.jpeg" alt="Imagen grande">
+                    <img src="images/plomero.jpeg" alt="Imagen grande">
                 </div>
             </div>
         </div>
 
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
-</body>
-</html>
+<?php include 'templates/footer.php'; ?>

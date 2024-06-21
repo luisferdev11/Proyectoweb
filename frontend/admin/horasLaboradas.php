@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar Usuarios</title>
-    <link rel="stylesheet" href="horasLaboradas.css">
+    <title>Reporte de Horas Trabajadas</title>
+    <link rel="stylesheet" href="css/horasLaboradas.css">
 </head>
 <body>
     <nav class="navbar">
@@ -21,10 +21,12 @@
     </nav>
 
     <div class="container">
-        <h1>Administrar usuarios trabajadores</h1>
-        <div class="busqueda-container">
-            <label for="Numero">Buscar por número de empleado:</label>
-            <input type="search" id="Numero" placeholder="20201345">
+        <h1>Reporte de Horas Trabajadas</h1>
+        <div class="periodo-container">
+            <label for="inicio">Inicio:</label>
+            <input type="text" id="inicio" placeholder="dd/mm/aa">
+            <label for="fin">Fin:</label>
+            <input type="text" id="fin" placeholder="dd/mm/aa">
         </div>
         <div class="report-container">
             <table>
@@ -32,19 +34,18 @@
                     <tr>
                         <th>ID</th>
                         <th>Usuario</th>
-                        <th>Rol</th>
-                        <th></th>
+                        <th>Horas trabajadas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     // Datos estáticos
                     $reports = [
-                        ["id" => 1851, "usuario" => "López García, Juan Antonio", "rol" => "Plomero"],
-                        ["id" => 1454, "usuario" => "Martínez Fernández, Carlos Alberto", "rol" => "Plomero"],
-                        ["id" => 4151, "usuario" => "García Pérez, Andrés Manuel", "rol" => "Plomero"],
-                        ["id" => 2356, "usuario" => "Hernández Ruiz, Maria Fernanda", "rol" => "Plomero"],
-                        ["id" => 4823, "usuario" => "Sánchez Gómez, Ricardo", "rol" => "Plomero"]
+                        ["id" => 1851, "usuario" => "López García, Juan Antonio", "horas_trabajadas" => 12],
+                        ["id" => 1454, "usuario" => "Martínez Fernández, Carlos Alberto", "horas_trabajadas" => 1],
+                        ["id" => 4151, "usuario" => "García Pérez, Andrés Manuel", "horas_trabajadas" => 45],
+                        ["id" => 2356, "usuario" => "Hernández Ruiz, Maria Fernanda", "horas_trabajadas" => 20],
+                        ["id" => 4823, "usuario" => "Sánchez Gómez, Ricardo", "horas_trabajadas" => 30]
                     ];
 
                     // Generar filas de la tabla con datos estáticos
@@ -52,11 +53,7 @@
                         echo "<tr>
                                 <td>{$report['id']}</td>
                                 <td>{$report['usuario']}</td>
-                                <td>{$report['rol']}</td>
-                                <td>
-                                    <button>Editar</button>
-                                    <button>Borrar</button>
-                                </td>
+                                <td>{$report['horas_trabajadas']}</td>
                               </tr>";
                     }
                     ?>
@@ -64,7 +61,7 @@
             </table>
         </div>
         <div class="actions">
-            <button class="worker-create">Agregar Trabajador</button>
+            <button class="btn btn-secondary">Descargar en PDF</button>
         </div>
     </div>
     

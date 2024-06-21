@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualización de Suministros</title>
-    <link rel="stylesheet" href="gestionSuministro.css">
+    <link rel="stylesheet" href="css/gestionSuministro.css">
 </head>
 <body>
     <nav class="navbar">
