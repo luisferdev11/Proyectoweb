@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Cuenta</title>
-    <link rel="stylesheet" href="css/iniciocliente.css">
+    <link rel="stylesheet" href="/css/inicioTrabajador.css">
 </head>
 <body>
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="logo">
             <img src="img/logo.jpeg" alt="Logo de la Empresa">
         </div>
@@ -15,7 +15,9 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="configuracion.php">Configuración de la cuenta</a></li>
         </ul>
-    </nav>
+    </nav> -->
+
+    <?php include '../templates/headerWorker.php'; ?>
 
     <h1 class="title">Mi Cuenta</h1>
 
