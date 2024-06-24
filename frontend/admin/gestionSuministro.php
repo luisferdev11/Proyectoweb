@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualización de Suministros</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/gestionSuministro.css">
     </head>
 <body>
@@ -20,6 +21,21 @@
             <li><a href="asignaciones.php">Asignaciones</a></li>
             <li><a href="horasLaboradas.php">Horas Laboradas</a></li>
            
+=======
+    <link rel="stylesheet" href="css/gestionSuministro.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/logo.jpeg" alt="Logo de la Empresa">
+        </div>
+        <ul class="nav-links">
+            <li><a href="historial.php">Historial de compras</a></li>
+            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
+            <li><a href="solicitud.php">Solicitar servicio</a></li>
+            <li><a href="pagos.php">Mis pagos</a></li>
+            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
         </ul>
     </nav>
 
@@ -39,6 +55,10 @@
                 </thead>
                 <tbody>
                     <?php
+<<<<<<< HEAD
+=======
+                    // Datos estáticos
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
                     $supplies = [
                         ["id" => 151, "nombre" => "Tubo", "cantidad" => "10", "unidad" => "m", "minima" => "5", "maxima" => "50"],
                         ["id" => 565, "nombre" => "Manguera", "cantidad" => "8", "unidad" => "m", "minima" => "3", "maxima" => "30"],
@@ -51,6 +71,10 @@
                         ["id" => 912, "nombre" => "Taladro", "cantidad" => "4", "unidad" => "pieza", "minima" => "1", "maxima" => "6"]
                     ];
 
+<<<<<<< HEAD
+=======
+                    // Generar filas de la tabla con datos estáticos
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
                     foreach ($supplies as $supply) {
                         echo "<tr>
                                 <td>{$supply['id']}</td>

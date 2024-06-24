@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignaciones</title>
+<<<<<<< HEAD:frontend/admin/asignaciones.php
     <link rel="stylesheet" href="../css/asignaciones.css">
+=======
+    <link rel="stylesheet" href="css/asignaciones.css">
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235:asignaciones.php
 </head>
 <body>
 <nav class="navbar">

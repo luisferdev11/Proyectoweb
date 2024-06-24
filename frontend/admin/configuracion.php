@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración de la Cuenta</title>
+<<<<<<< HEAD:frontend/admin/configuracion.php
     <link rel="stylesheet" href="../css/configuracion.css">
+=======
+    <link rel="stylesheet" href="css/configuracion.css">
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235:configuracion.php
 </head>
 <body>
 <nav class="navbar">

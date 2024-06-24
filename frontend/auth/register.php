@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+<<<<<<< HEAD:frontend/auth/register.php
     <link rel="stylesheet" href="/css/registro.css">
+=======
+    <link rel="stylesheet" href="css/registro.css">
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235:registro.php
 </head>
 <body>
     <nav class="navbar">

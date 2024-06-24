@@ -1,3 +1,4 @@
+<<<<<<< HEAD:frontend/index.php
 <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -7,6 +8,37 @@
         <link rel="stylesheet" href="css/index.css">
         
 </head>
+=======
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar y Footer</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/plomeros-sos/public/images/logo.jpeg" alt="Logo de la Empresa">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="registro.php">Registro</a></li>
+            <li><a href="InicioS.php">Sesión</a></li>
+        </ul>
+    </nav> -->
+
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PlomerosSOS</title>
+        <link rel="stylesheet" href="/css/index.css">
+        
+</head>
+>>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235:index.php
 
 <?php include 'templates/header.php'; ?>
 
