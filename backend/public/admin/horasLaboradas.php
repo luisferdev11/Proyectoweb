@@ -4,42 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Horas Trabajadas</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="../css/horasLaboradas.css">
-=======
-    <link rel="stylesheet" href="css/horasLaboradas.css">
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-<<<<<<< HEAD
-        <img src="../images/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="home.php">Inicio</a></li>
-            <li><a href="gestionSuministro.php">Gestión de suministros</a></li>
-            <li><a href="administraUsuarios.php">Administrar Usuarios</a></li>
-            <li><a href="configuracion.php">Configuración</a></li>
-            <li><a href="costos.php">Costos</a></li>
-            <li><a href="asignaciones.php">Asignaciones</a></li>
-            <li><a href="horasLaboradas.php">Horas Laboradas</a></li>
-           
-        </ul>
-    </nav>
-=======
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="historial.php">Historial de compras</a></li>
-            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
-            <li><a href="solicitud.php">Solicitar servicio</a></li>
-            <li><a href="pagos.php">Mis pagos</a></li>
-            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
-        </ul>
-    </nav>
+<?php include '../templates/headeradmin.php'; ?>
 
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
+
     <div class="container">
         <h1>Reporte de Horas Trabajadas</h1>
         <div class="periodo-container">

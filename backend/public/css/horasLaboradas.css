@@ -1,35 +1,24 @@
+/* Estilos generales */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-<<<<<<< HEAD
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #f0f0f0;
-=======
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 }
 
+/* Barra de navegación */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-<<<<<<< HEAD
     background-color: #1E90FF;
     padding: 10px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
 }
 
 .logo img {
     height: 80px;
-=======
-    background-color: #1E90FF; 
-    padding: 10px 20px;
-}
-
-.logo img {
-    height: 100px;
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 }
 
 .nav-links {
@@ -41,55 +30,21 @@ body {
 
 .nav-links li {
     margin-left: 20px;
-<<<<<<< HEAD
-    position: relative; /* Necesario para el submenú */
-=======
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-<<<<<<< HEAD
     transition: color 0.3s ease;
-=======
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 }
 
 .nav-links a:hover {
     text-decoration: underline;
-<<<<<<< HEAD
     color: #f0f0f0;
 }
 
-/* Estilos para el submenú */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-/* Mostrar el submenú al pasar el ratón */
-.nav-links li:hover .dropdown-content {
-    display: block;
-}
-
+/* Contenedor principal */
 .container {
     width: 80%;
     margin: 120px auto 20px;
@@ -97,28 +52,7 @@ body {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-=======
-}
-
-.footer {
-    background-color: #1E90FF; 
-    color: white;
-    text-align: center;
-    padding: 30px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-
-
-
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
+    flex-grow: 1;
 }
 
 h1 {
@@ -126,76 +60,49 @@ h1 {
     color: #333;
 }
 
+/* Contenedor de período */
 .periodo-container {
     display: flex;
     justify-content: center;
-<<<<<<< HEAD
     align-items: center;
-=======
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
     margin-bottom: 20px;
 }
 
 .periodo-container label {
-<<<<<<< HEAD
     margin-right: 10px;
     font-weight: bold;
 }
 
-.periodo-container input[type="text"] {
+.periodo-container input[type="date"] {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-right: 10px;
 }
 
+/* Contenedor de reporte */
 .report-container {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
-=======
-    margin: 0 10px;
-    font-weight: bold;
-}
-
-.periodo-container input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.report-container {
-    background-color: #eee;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-<<<<<<< HEAD
     margin-top: 20px;
 }
 
 th, td {
     padding: 12px 15px;
-=======
-}
-
-th, td {
-    padding: 10px;
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 th {
     background-color: #f2f2f2;
-<<<<<<< HEAD
     font-weight: bold;
     text-transform: uppercase;
     color: #555;
@@ -203,14 +110,9 @@ th {
 
 tr:hover {
     background-color: #f5f5f5;
-=======
 }
 
-tr:hover {
-    background-color: #f1f1f1;
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
-}
-
+/* Acciones */
 .actions {
     display: flex;
     justify-content: center;
@@ -223,7 +125,6 @@ tr:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-<<<<<<< HEAD
     background-color: #6c757d;
     color: white;
     font-size: 16px;
@@ -234,6 +135,7 @@ tr:hover {
     background-color: #555;
 }
 
+/* Pie de página */
 .footer {
     background-color: #1E90FF;
     color: white;
@@ -243,11 +145,68 @@ tr:hover {
     bottom: 0;
     position: fixed;
 }
-=======
+
+/* Formulario de factura */
+.invoice-form {
+    max-width: 700px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
+.invoice-form h2 {
+    text-align: center;
+    color: #333;
 }
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
+
+.invoice-form label {
+    display: block;
+    margin: 12px 0 6px;
+    color: #333;
+}
+
+.invoice-form input,
+.invoice-form select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.invoice-form table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.invoice-form table,
+.invoice-form th,
+.invoice-form td {
+    border: 1px solid #ccc;
+}
+
+.invoice-form th,
+.invoice-form td {
+    padding: 10px;
+    text-align: left;
+}
+
+.invoice-form th {
+    background-color: #f9f9f9;
+}
+
+.invoice-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.invoice-form button:hover {
+    background-color: #45a049;
+}

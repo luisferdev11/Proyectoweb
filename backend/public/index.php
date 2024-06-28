@@ -1,3 +1,12 @@
+<?php
+    // si tiene sesion iniciado redirigir al home
+    session_start();
+    if (isset($_SESSION['user_id'])) {
+        header("Location: /public/client/home.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
     <html lang="es">
     <head>

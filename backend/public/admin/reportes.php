@@ -4,22 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
-    <link rel="stylesheet" href="css/reportes.css">
+    <link rel="stylesheet" href="../css/reportes.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="historial.php">Historial de compras</a></li>
-            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
-            <li><a href="solicitud.php">Solicitar servicio</a></li>
-            <li><a href="pagos.php">Mis pagos</a></li>
-            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
-        </ul>
-    </nav>
-
+    
+<?php include '../templates/headeradmin.php'; ?>
 
     <div class="container">
         <h1>Reportes pendientes</h1>
@@ -117,11 +106,9 @@
         </div>
     </div>
 
-    
+    <?php include '../templates/footer.php'; ?>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
+
 </body>
 <script>
         function showReportForm() {

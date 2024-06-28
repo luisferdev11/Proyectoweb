@@ -6,11 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
+    echo var_dump($_POST);
+
     $controller = new ClienteController();
     $result = $controller->loginCliente($correo, $contrasena);
 
     if ($result) {
-        header("Location: /auth/welcome.php");
+        header("Location: /public/client/home.php");
         exit();
     } else {
         echo "Error al iniciar sesión. Por favor, verifica tus credenciales.";
@@ -36,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="right-section">
             <div class="form-box">
                 <h2>Inicio de Sesión</h2>
-                <form action="iniciocliente.php" method="POST">
+                <form action="login.php" method="POST">
                     <label for="correo">Correo:</label>
                     <input type="email" id="correo" name="correo" required>
                     

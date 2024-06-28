@@ -1,24 +1,23 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /public/auth/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Cuenta</title>
-    <link rel="stylesheet" href="css/iniciocliente.css">
+    <link rel="stylesheet" href="../css/inicioAdmin.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="historial.php">Historial de compras</a></li>
-            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
-            <li><a href="solicitud.php">Solicitar servicio</a></li>
-            <li><a href="pagos.php">Mis pagos</a></li>
-            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
-        </ul>
-    </nav>
+<?php include '../templates/headerClient.php'; ?>
+
 
     <h1 class="title">Mi Cuenta</h1>
 
@@ -40,8 +39,7 @@
         </a>
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
+    <?php include '../templates/footer.php'; ?>
+
 </body>
 </html>

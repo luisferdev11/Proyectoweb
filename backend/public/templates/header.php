@@ -1,5 +1,4 @@
 
-<body>
     <header class="header">
         <nav class="navbar">
             <div class="logo">

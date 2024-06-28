@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $controller->registerCliente($data);
 
     if ($result) {
-        echo "Cliente registrado exitosamente.";
+        header("Location: /public/client/home.php");
+        exit();
     } else {
         echo "Error al registrar el cliente.";
     }
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registro</title>
     <link rel="stylesheet" href="../css/registro.css">
 </head>
-<?php include '../templates/header.php'; ?>
+    <?php include '../templates/header.php'; ?>
 
     <div class="container">
         <div class="left-section">

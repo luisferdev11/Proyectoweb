@@ -4,21 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Servicios</title>
-    <link rel="stylesheet" href="css/historial.css">
+    <link rel="stylesheet" href="../css/historial.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="historial.php">Historial de compras</a></li>
-            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
-            <li><a href="solicitud.php">Solicitar servicio</a></li>
-            <li><a href="pagos.php">Mis pagos</a></li>
-            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
-        </ul>
-    </nav>
+<?php include '../templates/headerClient.php'; ?>
 
     <h1 class="title">Historial de Servicios</h1>
 
@@ -116,9 +105,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
+    <?php include '../templates/footer.php'; ?>
 
     <script>
         var workerModal = document.getElementById('worker-info-modal');

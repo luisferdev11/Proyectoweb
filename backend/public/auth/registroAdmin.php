@@ -4,23 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="css/registro.css">
+    <link rel="stylesheet" href="../css/registro.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.php">Inicio</a></li>
-            <li><a href="registro.php">Registro</a></li>
-            <li><a href="InicioS.php">Sesión</a></li>
-        </ul>
-    </nav>
+<?php include '../templates/header.php'; ?>
+
 
     <div class="container">
         <div class="left-section">
-            <img src="img/logo.jpeg" alt="Imagen de Registro">
+            <img src="../images/logo.jpeg" alt="Imagen de Registro">
         </div>
         <div class="right-section">
             <div class="form-box">
@@ -72,8 +64,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
+    <?php include '../templates/footer.php'; ?>
+
 </body>
 </html>

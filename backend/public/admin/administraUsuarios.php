@@ -4,40 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Usuarios</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="../css/administraUsuarios.css">
-    </head>
-<body>
-<nav class="navbar">
-        <div class="logo">
-        <img src="../images/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="home.php">Inicio</a></li>
-            <li><a href="gestionSuministro.php">Gestión de suministros</a></li>
-            <li><a href="administraUsuarios.php">Administrar Usuarios</a></li>
-            <li><a href="configuracion.php">Configuración</a></li>
-            <li><a href="costos.php">Costos</a></li>
-            <li><a href="asignaciones.php">Asignaciones</a></li>
-            <li><a href="horasLaboradas.php">Horas Laboradas</a></li>
-           
-=======
-    <link rel="stylesheet" href="css/horasLaboradas.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="historial.php">Historial de compras</a></li>
-            <li><a href="configuracion.php">Configuración de la cuenta</a></li>
-            <li><a href="solicitud.php">Solicitar servicio</a></li>
-            <li><a href="pagos.php">Mis pagos</a></li>
-            <li><a href="evaluacion.php">Evaluación de servicios</a></li>
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235
-        </ul>
-    </nav>
+<?php include '../templates/headeradmin.php'; ?>
+
 
     <div class="container">
         <h1>Administrar usuarios trabajadores</h1>
@@ -87,9 +58,8 @@
         </div>
     </div>
     
-    <footer class="footer">
-        <p></p>
-    </footer>
+    <?php include '../templates/footer.php'; ?>
+
     <script src="script.js"></script>
 </body>
 </html>

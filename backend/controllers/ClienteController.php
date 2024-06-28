@@ -34,7 +34,7 @@ class ClienteController {
 
     public function loginCliente(string $correo, string $contrasena): bool {
         $user = $this->cliente->login($correo, $contrasena);
-
+        
         if ($user) {
             session_start();
             $_SESSION['user_id'] = $user['id_persona'];
@@ -45,8 +45,43 @@ class ClienteController {
         return false;
     }
 
-    public function getClienteById(int $id): ?array {
-        return $this->cliente->getById($id);
+    public function logoutCliente(): void {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
+
+    public function getProfile(int $id): ?array {
+        return $this->cliente->getProfile($id);
+    }
+
+    public function updateProfile(array $data): bool {
+    
+        return $this->cliente->update($data);
+    }
+
+    public function deleteProfile(int $id): bool {
+        return $this->cliente->delete($id);
+    }
+
+    public function getHistorialPedidos(int $id): ?array {
+        return $this->cliente->getHistorialPedidos($id);
+    }
+
+    public function makeSolicitud(array $data): bool {
+        return $this->cliente->makeSolicitud($data);
+    }
+
+    public function cancelSolicitud(int $id): bool {
+        return $this->cliente->cancelSolicitud($id);
+    }
+
+    public function getFactura(int $id): ?array {
+        return $this->cliente->getFactura($id);
+    }
+
+    public function getDirecciones(int $id_cliente): ?array {
+        return $this->cliente->getDirecciones($id_cliente);
     }
 }
 

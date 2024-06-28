@@ -4,28 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignaciones</title>
-<<<<<<< HEAD:frontend/admin/asignaciones.php
     <link rel="stylesheet" href="../css/asignaciones.css">
-=======
-    <link rel="stylesheet" href="css/asignaciones.css">
->>>>>>> e6c8a39ced55ab12ef8fa898d291a1373ea9f235:asignaciones.php
 </head>
 <body>
-<nav class="navbar">
-        <div class="logo">
-        <img src="../images/logo.jpeg" alt="Logo de la Empresa">
-        </div>
-        <ul class="nav-links">
-            <li><a href="home.php">Inicio</a></li>
-            <li><a href="gestionSuministro.php">Gestión de suministros</a></li>
-            <li><a href="administraUsuarios.php">Administrar Usuarios</a></li>
-            <li><a href="configuracion.php">Configuración</a></li>
-            <li><a href="costos.php">Costos</a></li>
-            <li><a href="asignaciones.php">Asignaciones</a></li>
-            <li><a href="horasLaboradas.php">Horas Laboradas</a></li>
-           
-        </ul>
-    </nav>
+<?php include '../templates/headeradmin.php'; ?>
+
 
     <h1 class="title">Asignaciones</h1>
 
@@ -57,8 +40,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <p></p>
-    </footer>
+    <?php include '../templates/footer.php'; ?>
+
 </body>
 </html>

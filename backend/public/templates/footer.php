@@ -1,4 +1,4 @@
-
+<!-- poner footer con display normal, quitar el fixed -->
     <footer class="footer">
         <p>&copy; 2024 PlomerosSOS. Todos los derechos reservados.</p>
         <p>
