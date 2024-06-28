@@ -8,6 +8,8 @@ class Cliente extends Persona {
     private string $table_peticion = 'Peticion';
     private string $table_metodo_pago = 'MetodoPago';
     private string $table_peticion_metodo_pago = 'PeticionMetodoPago';
+    private string $table_servicio = 'Servicio';
+    private string $table_empleado = 'Empleado';
 
     public function __construct(PDO $db) {
         parent::__construct($db);
@@ -99,10 +101,19 @@ class Cliente extends Persona {
         return $this->getById($id_persona);
     }
 
-    public function getHistorialPedidos(int $id_persona): ?array {
-        $query = 'SELECT * FROM Pedidos WHERE id_cliente = :id_persona';
+    public function getHistorialServicios(int $id_cliente): ?array {
+        $query = 'SELECT p.id_peticion, p.FechaPeticion, p.TipoServicio, p.Descripcion, p.InstruccionesExtra, p.Estado, p.FechaProgramada, p.HoraProgramada,
+                         e.Nombre AS PlomeroNombre, e.ApellidoPaterno AS PlomeroApellido, d.Direccion,
+                         s.id_servicio, s.Costo, s.Calificacion, s.Estado AS ServicioEstado
+                  FROM ' . $this->table_peticion . ' p
+                  LEFT JOIN ' . $this->table_servicio . ' s ON p.id_peticion = s.id_peticion
+                  LEFT JOIN ' . $this->table_empleado . ' e ON s.id_empleado = e.id_empleado
+                  LEFT JOIN Direccion d ON p.id_direccion = d.id_direccion
+                  WHERE p.id_cliente = :id_cliente
+                  ORDER BY p.FechaPeticion DESC';
+
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_persona', $id_persona);
+        $stmt->bindParam(':id_cliente', $id_cliente);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

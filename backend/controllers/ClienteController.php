@@ -65,9 +65,10 @@ class ClienteController {
         return $this->cliente->delete($id);
     }
 
-    public function getHistorialPedidos(int $id): ?array {
-        return $this->cliente->getHistorialPedidos($id);
+    public function getHistorialServicios(int $id_cliente): ?array {
+        return $this->cliente->getHistorialServicios($id_cliente);
     }
+    
 
     public function makeSolicitud(array $data): bool {
         return $this->cliente->makeSolicitud($data);
