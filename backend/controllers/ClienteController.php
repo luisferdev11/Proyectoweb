@@ -34,11 +34,12 @@ class ClienteController {
 
     public function loginCliente(string $correo, string $contrasena): bool {
         $user = $this->cliente->login($correo, $contrasena);
-        
+
         if ($user) {
             session_start();
             $_SESSION['user_id'] = $user['id_persona'];
-            $_SESSION['user_name'] = $user['Nombre'];
+            $_SESSION['user_name'] = $user['nombre'];
+            $_SESSION['client_id'] = $user['id_cliente'];
             return true;
         }
 

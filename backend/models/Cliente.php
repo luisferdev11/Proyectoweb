@@ -6,6 +6,8 @@ class Cliente extends Persona {
     private string $table_cliente = 'Cliente';
     private string $table_direccion = 'Direccion';
     private string $table_peticion = 'Peticion';
+    private string $table_metodo_pago = 'MetodoPago';
+    private string $table_peticion_metodo_pago = 'PeticionMetodoPago';
 
     public function __construct(PDO $db) {
         parent::__construct($db);
@@ -42,13 +44,16 @@ class Cliente extends Persona {
     }
 
     public function login(string $correo, string $contrasena): ?array {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE Correo = :correo';
+        // $query = 'SELECT * FROM ' . $this->table . ' WHERE Correo = :correo';
+        $query = 'SELECT c.id_cliente, p.* FROM ' . $this->table_cliente . ' c 
+                  JOIN ' . $this->table . ' p ON c.id_persona = p.id_persona 
+                  WHERE p.correo = :correo';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':correo', $correo);
         $stmt->execute();
     
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
         if ($user) {
             $hash = $user['clave'];
             if (password_verify($contrasena, $hash)) {
@@ -104,21 +109,64 @@ class Cliente extends Persona {
     }
 
     public function makeSolicitud(array $data): bool {
-        $query = 'INSERT INTO ' . $this->table_peticion . ' 
-                  (id_cliente, id_direccion, TipoServicio, Descripcion, InstruccionesExtra, FechaProgramada, HoraProgramada, FechaPeticion, Estado) 
-                  VALUES (:id_cliente, :id_direccion, :TipoServicio, :Descripcion, :InstruccionesExtra, :FechaProgramada, :HoraProgramada, :FechaPeticion, :Estado)';
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_cliente', $data['id_cliente']);
-        $stmt->bindParam(':id_direccion', $data['id_direccion']);
-        $stmt->bindParam(':TipoServicio', $data['TipoServicio']);
-        $stmt->bindParam(':Descripcion', $data['Descripcion']);
-        $stmt->bindParam(':InstruccionesExtra', $data['InstruccionesExtra']);
-        $stmt->bindParam(':FechaProgramada', $data['FechaProgramada']);
-        $stmt->bindParam(':HoraProgramada', $data['HoraProgramada']);
-        $stmt->bindParam(':FechaPeticion', $data['FechaPeticion']);
-        $stmt->bindParam(':Estado', $data['Estado']);
+        try {
+            $this->conn->beginTransaction();
 
-        return $stmt->execute();
+            
+            // Insertar dirección
+            $queryDireccion = 'INSERT INTO Direccion (id_cliente, Direccion) VALUES (:id_cliente, :Direccion)';
+            $stmtDireccion = $this->conn->prepare($queryDireccion);
+            $stmtDireccion->bindParam(':id_cliente', $data['id_cliente']);
+            $stmtDireccion->bindParam(':Direccion', $data['Direccion']);
+            $stmtDireccion->execute();
+            $id_direccion = $this->conn->lastInsertId();
+
+            // Insertar método de pago
+            $queryMetodoPago = 'INSERT INTO ' . $this->table_metodo_pago . ' 
+                                (NumeroTarjeta, NombreTitular, FechaExpiracion, CVV) 
+                                VALUES (:NumeroTarjeta, :NombreTitular, :FechaExpiracion, :CVV)';
+            $stmtMetodoPago = $this->conn->prepare($queryMetodoPago);
+            $stmtMetodoPago->bindParam(':NumeroTarjeta', $data['NumeroTarjeta']);
+            $stmtMetodoPago->bindParam(':NombreTitular', $data['NombreTitular']);
+            $stmtMetodoPago->bindParam(':FechaExpiracion', $data['FechaExpiracion']);
+            $stmtMetodoPago->bindParam(':CVV', $data['CVV']);
+            $stmtMetodoPago->execute();
+
+            // Insertar petición
+            $queryPeticion = 'INSERT INTO ' . $this->table_peticion . ' 
+                             (id_cliente, id_direccion, TipoServicio, Descripcion, InstruccionesExtra, FechaProgramada, HoraProgramada, FechaPeticion, Estado) 
+                             VALUES (:id_cliente, :id_direccion, :TipoServicio, :Descripcion, :InstruccionesExtra, :FechaProgramada, :HoraProgramada, :FechaPeticion, :Estado)';
+            $stmtPeticion = $this->conn->prepare($queryPeticion);
+            $stmtPeticion->bindParam(':id_cliente', $data['id_cliente']);
+            $stmtPeticion->bindParam(':id_direccion', $id_direccion);
+            $stmtPeticion->bindParam(':TipoServicio', $data['TipoServicio']);
+            $stmtPeticion->bindParam(':Descripcion', $data['Descripcion']);
+            $stmtPeticion->bindParam(':InstruccionesExtra', $data['InstruccionesExtra']);
+            $stmtPeticion->bindParam(':FechaProgramada', $data['FechaProgramada']);
+            $stmtPeticion->bindParam(':HoraProgramada', $data['HoraProgramada']);
+            $stmtPeticion->bindParam(':FechaPeticion', $data['FechaPeticion']);
+            $stmtPeticion->bindParam(':Estado', $data['Estado']);
+            $stmtPeticion->execute();
+            $id_peticion = $this->conn->lastInsertId();
+
+            // Insertar relación entre petición y método de pago
+            $queryPeticionMetodoPago = 'INSERT INTO ' . $this->table_peticion_metodo_pago . ' 
+                                       (id_peticion, NumeroTarjeta, Estado) 
+                                       VALUES (:id_peticion, :NumeroTarjeta, :Estado)';
+            $stmtPeticionMetodoPago = $this->conn->prepare($queryPeticionMetodoPago);
+            $stmtPeticionMetodoPago->bindParam(':id_peticion', $id_peticion);
+            $stmtPeticionMetodoPago->bindParam(':NumeroTarjeta', $data['NumeroTarjeta']);
+            $stmtPeticionMetodoPago->bindParam(':Estado', $data['Estado']);
+            $stmtPeticionMetodoPago->execute();
+
+            $this->conn->commit();
+
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            echo "Failed: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function cancelSolicitud(int $id_peticion): bool {
