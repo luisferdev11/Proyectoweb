@@ -28,11 +28,8 @@ checkSessionAndRole('cliente');
         <a href="solicitud.php" class="box">
             <h2>Solicitar servicio</h2>
         </a>
-        <a href="pagos.php" class="box">
-            <h2>Mis pagos</h2>
-        </a>
-        <a href="evaluacion.php" class="box">
-            <h2>Evaluación de servicios</h2>
+        <a href="factura.php" class="box">
+            <h2>Mis facturas</h2>
         </a>
     </div>
 

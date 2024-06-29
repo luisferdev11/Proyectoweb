@@ -17,8 +17,33 @@ class ServicioController {
         return $this->servicio->getServiciosPendientes($id_empleado);
     }
 
-    public function actualizarServicio(int $id_servicio, string $observaciones): bool {
-        return $this->servicio->actualizarServicio($id_servicio, $observaciones);
+
+    public function asignarEmpleadoExistente(): bool {
+        $query = 'SELECT id_servicio FROM Servicio WHERE id_empleado IS NULL';
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($servicios as $servicio) {
+            $id_empleado = $this->servicio->getEmpleadoDisponible();
+            if ($id_empleado !== null) {
+                $this->servicio->asignarEmpleado($servicio['id_servicio'], $id_empleado);
+            }
+        }
+
+        return true;
+    }
+
+    public function getServiciosAsignados($id_empleado) {
+        return $this->servicio->getServiciosPorEmpleado($id_empleado);
+    }
+
+    public function completarServicio($id_servicio) {
+        return $this->servicio->marcarComoCompletado($id_servicio);
+    }
+
+    public function generarReporte($id_servicio, $observaciones) {
+        return $this->servicio->agregarObservaciones($id_servicio, $observaciones);
     }
 }
 ?>

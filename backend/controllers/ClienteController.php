@@ -89,6 +89,11 @@ class ClienteController {
     public function getDirecciones(int $id_cliente): ?array {
         return $this->cliente->getDirecciones($id_cliente);
     }
+
+    public function updatehistorial(array $data): bool {
+    
+        return $this->cliente->calificar($data);
+    }
 }
 
 ?>

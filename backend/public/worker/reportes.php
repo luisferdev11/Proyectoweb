@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../controllers/ServicioController.php';
 checkSessionAndRole('empleado');
 
 $controller = new ServicioController();
-$servicios = $controller->getServiciosPendientes($_SESSION['user_id']);
+$servicios = $controller->getServiciosPendientes($_SESSION['worker_id']);
 
 ?>
 
@@ -16,6 +16,7 @@ $servicios = $controller->getServiciosPendientes($_SESSION['user_id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
     <link rel="stylesheet" href="../css/reportes.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     
@@ -27,11 +28,11 @@ $servicios = $controller->getServiciosPendientes($_SESSION['user_id']);
         <?php foreach ($servicios as $servicio): ?>
         <div class="report-card">
             <p><strong>ID:</strong> <?php echo htmlspecialchars($servicio['id_servicio']); ?></p>
-            <p><strong>Fecha:</strong> <?php echo htmlspecialchars($servicio['FechaProgramada']); ?></p>
-            <p><strong>Servicio:</strong> <?php echo htmlspecialchars($servicio['TipoServicio']); ?></p>
-            <p><strong>Cliente:</strong> <?php echo htmlspecialchars($servicio['ClienteNombre']); ?></p>
-            <p><strong>Dirección:</strong> <?php echo htmlspecialchars($servicio['Direccion']); ?></p>
-            <p><strong>Total:</strong> <?php echo htmlspecialchars($servicio['Precio']); ?></p>
+            <p><strong>Fecha:</strong> <?php echo htmlspecialchars($servicio['fechaprogramada']); ?></p>
+            <p><strong>Servicio:</strong> <?php echo htmlspecialchars($servicio['tiposervicio']); ?></p>
+            <p><strong>Cliente:</strong> <?php echo htmlspecialchars($servicio['clientenombre']); ?></p>
+            <p><strong>Dirección:</strong> <?php echo htmlspecialchars($servicio['direccion']); ?></p>
+            <p><strong>Total:</strong> <?php echo htmlspecialchars($servicio['precio']); ?></p>
             <p><strong>Observaciones:</strong></p>
             <textarea id="observaciones-<?php echo $servicio['id_servicio']; ?>" rows="4"></textarea>
             <button class="btn btn-primary" onclick="generarReporte(<?php echo $servicio['id_servicio']; ?>)">Generar Reporte</button>

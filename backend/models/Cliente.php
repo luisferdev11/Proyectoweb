@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Persona.php';
+require_once __DIR__ . '/Servicio.php';
 
 class Cliente extends Persona {
     private string $table_cliente = 'Cliente';
@@ -11,9 +12,11 @@ class Cliente extends Persona {
     private string $table_servicio = 'Servicio';
     private string $table_empleado = 'Empleado';
     public int $id_cliente;
+    public Servicio $servicio;
 
     public function __construct(PDO $db) {
         parent::__construct($db);
+        $this->servicio = new Servicio($db);
     }
 
     public function register(): bool {
@@ -103,40 +106,63 @@ class Cliente extends Persona {
         return $this->getById($id_persona);
     }
 
-    public function getHistorialServicios(int $id_cliente): ?array {
-        $query = 'SELECT p.id_peticion, p.FechaPeticion, p.TipoServicio, p.Descripcion, p.InstruccionesExtra, p.Estado, p.FechaProgramada, p.HoraProgramada,
-                         e.Nombre AS PlomeroNombre, e.ApellidoPaterno AS PlomeroApellido, d.Direccion,
-                         s.id_servicio, s.Costo, s.Calificacion, s.Estado AS ServicioEstado
-                  FROM ' . $this->table_peticion . ' p
-                  LEFT JOIN ' . $this->table_servicio . ' s ON p.id_peticion = s.id_peticion
-                  LEFT JOIN ' . $this->table_empleado . ' e ON s.id_empleado = e.id_empleado
-                  LEFT JOIN Direccion d ON p.id_direccion = d.id_direccion
-                  WHERE p.id_cliente = :id_cliente
-                  ORDER BY p.FechaPeticion DESC';
+    
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_cliente', $id_cliente);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getHistorial(int $id_persona): ?array {
+        $query = 'SELECT hp.id_peticion, hp.fechapeticion, hp.tiposervicio, hp.descripcion, hp.instruccionesextra,
+                         hp.estado, hp.fechaprogramada, hp.horaprogramada
+                  FROM ' . $this->table_cliente . ' c
+                  JOIN ' . $this->table_peticion . ' p ON c.id_cliente = p.id_cliente
+                  JOIN historialpeticion hp ON p.id_peticion = hp.id_peticion
+                  WHERE c.id_persona = :id_persona
+                  ORDER BY hp.fechapeticion DESC';
+    
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $historial = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $historial ?: null;
+        } catch (PDOException $e) {
+            echo "Error al ejecutar la consulta: " . $e->getMessage();
+            return null; 
+        }
     }
+    
+    
+    
+    public function getHistorialServicios(int $id_persona): ?array {
+        return $this->getHistorial($id_persona);
+    }
+
+
 
     public function makeSolicitud(array $data): bool {
         try {
             $this->conn->beginTransaction();
-
-            
-            // Insertar dirección
+    
+            $queryCheckExists = 'SELECT COUNT(*) FROM MetodoPago WHERE NumeroTarjeta = :NumeroTarjeta';
+            $stmtCheckExists = $this->conn->prepare($queryCheckExists);
+            $stmtCheckExists->bindParam(':NumeroTarjeta', $data['NumeroTarjeta']);
+            $stmtCheckExists->execute();
+            $count = $stmtCheckExists->fetchColumn();
+    
+            if ($count > 0) {
+                echo "La tarjeta con número " . $data['NumeroTarjeta'] . " ya está registrada.";
+                $this->conn->rollBack(); 
+                return false; 
+            }
+    
             $queryDireccion = 'INSERT INTO Direccion (id_cliente, Direccion) VALUES (:id_cliente, :Direccion)';
             $stmtDireccion = $this->conn->prepare($queryDireccion);
             $stmtDireccion->bindParam(':id_cliente', $data['id_cliente']);
             $stmtDireccion->bindParam(':Direccion', $data['Direccion']);
             $stmtDireccion->execute();
             $id_direccion = $this->conn->lastInsertId();
-
-            // Insertar método de pago
-            $queryMetodoPago = 'INSERT INTO ' . $this->table_metodo_pago . ' 
-                                (NumeroTarjeta, NombreTitular, FechaExpiracion, CVV) 
+    
+            $queryMetodoPago = 'INSERT INTO MetodoPago (NumeroTarjeta, NombreTitular, FechaExpiracion, CVV) 
                                 VALUES (:NumeroTarjeta, :NombreTitular, :FechaExpiracion, :CVV)';
             $stmtMetodoPago = $this->conn->prepare($queryMetodoPago);
             $stmtMetodoPago->bindParam(':NumeroTarjeta', $data['NumeroTarjeta']);
@@ -144,10 +170,9 @@ class Cliente extends Persona {
             $stmtMetodoPago->bindParam(':FechaExpiracion', $data['FechaExpiracion']);
             $stmtMetodoPago->bindParam(':CVV', $data['CVV']);
             $stmtMetodoPago->execute();
-
-            // Insertar petición
-            $queryPeticion = 'INSERT INTO ' . $this->table_peticion . ' 
-                             (id_cliente, id_direccion, TipoServicio, Descripcion, InstruccionesExtra, FechaProgramada, HoraProgramada, FechaPeticion, Estado) 
+            $id_metodo_pago = $this->conn->lastInsertId();
+    
+            $queryPeticion = 'INSERT INTO Peticion (id_cliente, id_direccion, TipoServicio, Descripcion, InstruccionesExtra, FechaProgramada, HoraProgramada, FechaPeticion, Estado) 
                              VALUES (:id_cliente, :id_direccion, :TipoServicio, :Descripcion, :InstruccionesExtra, :FechaProgramada, :HoraProgramada, :FechaPeticion, :Estado)';
             $stmtPeticion = $this->conn->prepare($queryPeticion);
             $stmtPeticion->bindParam(':id_cliente', $data['id_cliente']);
@@ -161,21 +186,49 @@ class Cliente extends Persona {
             $stmtPeticion->bindParam(':Estado', $data['Estado']);
             $stmtPeticion->execute();
             $id_peticion = $this->conn->lastInsertId();
-
-            // Insertar relación entre petición y método de pago
-            $queryPeticionMetodoPago = 'INSERT INTO ' . $this->table_peticion_metodo_pago . ' 
-                                       (id_peticion, NumeroTarjeta, Estado) 
-                                       VALUES (:id_peticion, :NumeroTarjeta, :Estado)';
+    
+            $queryPeticionMetodoPago = 'INSERT INTO PeticionMetodoPago (id_peticion, numerotarjeta, Estado) 
+                                        VALUES (:id_peticion, :numerotarjeta, :Estado)';
             $stmtPeticionMetodoPago = $this->conn->prepare($queryPeticionMetodoPago);
             $stmtPeticionMetodoPago->bindParam(':id_peticion', $id_peticion);
-            $stmtPeticionMetodoPago->bindParam(':NumeroTarjeta', $data['NumeroTarjeta']);
+            $stmtPeticionMetodoPago->bindParam(':numerotarjeta', $data['NumeroTarjeta']); // Asegúrate de pasar el número de tarjeta correcto aquí
             $stmtPeticionMetodoPago->bindParam(':Estado', $data['Estado']);
             $stmtPeticionMetodoPago->execute();
-
+    
+            $queryHistorialPeticion = 'INSERT INTO historialpeticion (id_peticion, id_cliente, id_direccion, TipoServicio, Descripcion, InstruccionesExtra, FechaProgramada, HoraProgramada, FechaPeticion, Estado) 
+            VALUES (:id_peticion, :id_cliente, :id_direccion, :TipoServicio, :Descripcion, :InstruccionesExtra, :FechaProgramada, :HoraProgramada, :FechaPeticion, :Estado)';
+            $stmtHistorialPeticion = $this->conn->prepare($queryHistorialPeticion);
+            $stmtHistorialPeticion->bindParam(':id_peticion', $id_peticion);
+            $stmtHistorialPeticion->bindParam(':id_cliente', $data['id_cliente']);
+            $stmtHistorialPeticion->bindParam(':id_direccion', $id_direccion);
+            $stmtHistorialPeticion->bindParam(':TipoServicio', $data['TipoServicio']);
+            $stmtHistorialPeticion->bindParam(':Descripcion', $data['Descripcion']);
+            $stmtHistorialPeticion->bindParam(':InstruccionesExtra', $data['InstruccionesExtra']);
+            $stmtHistorialPeticion->bindParam(':FechaProgramada', $data['FechaProgramada']);
+            $stmtHistorialPeticion->bindParam(':HoraProgramada', $data['HoraProgramada']);
+            $stmtHistorialPeticion->bindParam(':FechaPeticion', $data['FechaPeticion']);
+            $stmtHistorialPeticion->bindParam(':Estado', $data['Estado']);
+            $stmtHistorialPeticion->execute();
+            $id_historial_peticion = $this->conn->lastInsertId();
+                
             $this->conn->commit();
 
+            $id_empleado = $this->servicio->getEmpleadoDisponible();
+            if ($id_empleado !== null) {
+                $queryServicio = 'INSERT INTO ' . $this->table_servicio . ' (id_empleado, id_peticion, TipoServicio, Estado, Costo, Precio) 
+                                  VALUES (:id_empleado, :id_peticion, :TipoServicio, :Estado, :Costo, :Precio)';
+                $stmtServicio = $this->conn->prepare($queryServicio);
+                $stmtServicio->bindParam(':id_empleado', $id_empleado);
+                $stmtServicio->bindParam(':id_peticion', $id_peticion);
+                $stmtServicio->bindParam(':TipoServicio', $data['TipoServicio']);
+                $stmtServicio->bindParam(':Estado', $data['Estado']);
+                $stmtServicio->bindParam(':Costo', $data['Costo']);
+                $stmtServicio->bindParam(':Precio', $data['Precio']);
+                $stmtServicio->execute();
+            }
+    
             return true;
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             $this->conn->rollBack();
             echo "Failed: " . $e->getMessage();
             return false;
@@ -190,13 +243,31 @@ class Cliente extends Persona {
         return $stmt->execute();
     }
 
-    public function getFactura(int $id_factura): ?array {
-        $query = 'SELECT * FROM Factura WHERE id_factura = :id_factura';
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_factura', $id_factura);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function getFactura(int $id_persona): ?array {
+        $query = 'SELECT hs.id_servicio, e.id_persona as id_empleado, p.Nombre as nombre_empleado, p.ApellidoPaterno, p.ApellidoMaterno,
+                         hp.tiposervicio, hp.descripcion,hp.estado,
+                         hs.horainicio, hs.horafin, hs.costo, hs.precio, hs.calificacion, hs.observaciones
+                  FROM ' . $this->table_cliente . ' c
+                  JOIN ' . $this->table_peticion . ' ptn ON c.id_cliente = ptn.id_cliente
+                  JOIN historialservicio hs ON ptn.id_peticion = hs.id_peticion
+                  JOIN ' . $this->table_empleado . ' e ON hs.id_empleado = e.id_empleado
+                  JOIN ' . $this->table . ' p ON e.id_persona = p.id_persona
+                  JOIN historialpeticion hp ON ptn.id_peticion = hp.id_peticion
+                  WHERE c.id_persona = :id_persona
+                  ORDER BY hs.id_servicio DESC';
+    
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_persona', $id_persona, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $historial = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $historial ?: null;
+        } catch (PDOException $e) {
+            echo "Error al ejecutar la consulta: " . $e->getMessage();
+            return null; 
+        }
     }
 
     public function getDirecciones(int $id_cliente): ?array {
@@ -208,6 +279,38 @@ class Cliente extends Persona {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function calificar(array $data): bool {
+        try {
+            // Obtener id_cliente desde historialpeticion
+            $query = 'SELECT id_cliente FROM historialpeticion WHERE id_peticion = :id_peticion';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_peticion', $data['id_peticion']);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$result) {
+                return false; // Si no se encontró id_cliente, retornar falso
+            }
+
+            $id_cliente = $result['id_cliente'];
+
+            // Actualizar calificación en historialservicio
+            $query_update = 'UPDATE historialservicio 
+                             SET calificacion = :calificacion,
+                                 observaciones = :observaciones
+                             WHERE id_peticion = :id_peticion';
+            $stmt_update = $this->conn->prepare($query_update);
+            $stmt_update->bindParam(':calificacion', $data['calificacion']);
+            $stmt_update->bindParam(':observaciones', $data['observaciones']);
+            $stmt_update->bindParam(':id_peticion', $data['id_peticion']);
+            
+            return $stmt_update->execute();
+        } catch (PDOException $e) {
+            // Manejo de errores
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 
 ?>

@@ -1,10 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /backend/public/auth/login.php");
-    exit();
-}
+require_once __DIR__ . '/../../includes/session.php';
+checkSessionAndRole('cliente');
 
 require_once __DIR__ . '/../../controllers/ClienteController.php';
 

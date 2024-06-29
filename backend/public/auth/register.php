@@ -42,6 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="right-section">
             <div class="form-box">
                 <h2>Registro</h2>
+                <a href="registerEmpleado.php" style="font-size: small;">Unete a nuestro equipo de trabajo. Registrate aqui</a>
+                <br>
+                <br>
                 <form action="register.php" method="POST">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required>
