@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/configuracion.css">
 </head>
 <body>
-<?php include '../templates/headerworker.php'; ?>
+<?php include '../templates/headerWorker.php'; ?>
 
 
     <h1 class="title">Configuración de la Cuenta Trabajador</h1>

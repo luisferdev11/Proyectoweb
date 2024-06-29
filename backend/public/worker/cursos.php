@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/cursosTrabajadores.css">
 </head>
 <body>
-<?php include '../templates/headerworker.php'; ?>
+<?php include '../templates/headerWorker.php'; ?>
 
     
     <div class="container">

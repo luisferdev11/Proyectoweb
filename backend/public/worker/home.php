@@ -8,7 +8,7 @@
 </head>
 <body>
     
-<?php include '../templates/headerworker.php'; ?>
+<?php include '../templates/headerWorker.php'; ?>
     
     <h1 class="title">Mi Cuenta</h1>
 

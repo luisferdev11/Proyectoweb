@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../models/Cliente.php';
@@ -26,6 +27,7 @@ class ClienteController {
             session_start();
             $_SESSION['user_id'] = $this->cliente->id_persona;
             $_SESSION['user_name'] = $this->cliente->Nombre;
+            // $_SESSION['client_id'] = $this->cliente->id_cliente;
             return true;
         }
 
@@ -36,7 +38,7 @@ class ClienteController {
         $user = $this->cliente->login($correo, $contrasena);
 
         if ($user) {
-            session_start();
+            
             $_SESSION['user_id'] = $user['id_persona'];
             $_SESSION['user_name'] = $user['nombre'];
             $_SESSION['client_id'] = $user['id_cliente'];

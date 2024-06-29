@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
-    echo var_dump($_POST);
 
     $controller = new ClienteController();
     $result = $controller->loginCliente($correo, $contrasena);

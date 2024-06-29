@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/disponibilidad.css">
 </head>
 <body>
-<?php include '../templates/header.php'; ?>
+<?php include '../templates/headerWorker.php'; ?>
 
     <h1 class="title">Disponibilidad</h1>
 
