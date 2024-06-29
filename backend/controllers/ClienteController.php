@@ -27,7 +27,8 @@ class ClienteController {
             session_start();
             $_SESSION['user_id'] = $this->cliente->id_persona;
             $_SESSION['user_name'] = $this->cliente->Nombre;
-            // $_SESSION['client_id'] = $this->cliente->id_cliente;
+            $_SESSION['client_id'] = $this->cliente->id_cliente;
+            $_SESSION['user_role'] = 'cliente';
             return true;
         }
 
@@ -42,6 +43,7 @@ class ClienteController {
             $_SESSION['user_id'] = $user['id_persona'];
             $_SESSION['user_name'] = $user['nombre'];
             $_SESSION['client_id'] = $user['id_cliente'];
+            $_SESSION['user_role'] = 'cliente';
             return true;
         }
 

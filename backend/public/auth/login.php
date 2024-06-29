@@ -1,21 +1,30 @@
 <?php
 
 require_once __DIR__ . '/../../controllers/ClienteController.php';
+require_once __DIR__ . '/../../controllers/EmpleadoController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
+    $role = $_POST['role']; // Se agrega para diferenciar el tipo de usuario
 
-
-    $controller = new ClienteController();
-    $result = $controller->loginCliente($correo, $contrasena);
-
-    if ($result) {
-        header("Location: /public/client/home.php");
-        exit();
-    } else {
-        echo "Error al iniciar sesión. Por favor, verifica tus credenciales.";
+    if ($role == 'cliente') {
+        $controller = new ClienteController();
+        $result = $controller->loginCliente($correo, $contrasena);
+        if ($result) {
+            header("Location: /public/client/home.php");
+            exit();
+        }
+    } elseif ($role == 'empleado') {
+        $controller = new EmpleadoController();
+        $result = $controller->loginEmpleado($correo, $contrasena);
+        if ($result) {
+            header("Location: /public/worker/home.php");
+            exit();
+        }
     }
+
+    echo "Error al iniciar sesión. Por favor, verifica tus credenciales.";
 }
 
 ?>
@@ -28,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="../css/InicioS.css">
 </head>
+<body>
 <?php include '../templates/header.php'; ?>
 
     <div class="container">
@@ -43,6 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     <label for="contrasena">Contraseña:</label>
                     <input type="password" id="contrasena" name="contrasena" required>
+
+                    <label for="role">Rol:</label>
+                    <select id="role" name="role">
+                        <option value="cliente">Cliente</option>
+                        <option value="empleado">Empleado</option>
+                    </select>
                     
                     <button type="submit">Iniciar Sesión</button>
                 </form>
@@ -51,4 +67,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 <?php include '../templates/footer.php'; ?>
+</body>
 </html>

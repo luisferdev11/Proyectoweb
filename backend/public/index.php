@@ -1,8 +1,16 @@
 <?php
     // si tiene sesion iniciado redirigir al home
     session_start();
-    if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['user_role'] == "cliente") {
         header("Location: /public/client/home.php");
+        exit();
+    }
+    if ($_SESSION['user_role'] == "empleado") {
+        header("Location: /public/worker/home.php");
+        exit();
+    }
+    if ($_SESSION['user_role'] == "admin") {
+        header("Location: /public/admin/home.php");
         exit();
     }
 ?>

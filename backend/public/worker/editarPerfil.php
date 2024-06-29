@@ -1,3 +1,41 @@
+<?php
+require_once __DIR__ . '/../../includes/session.php';
+require_once __DIR__ . '/../../controllers/EmpleadoController.php';
+
+checkSessionAndRole('empleado');
+
+$controller = new EmpleadoController();
+$profile = $controller->getProfile($_SESSION['user_id']);
+
+
+if (isset($_POST['logout'])) {
+    $controller->logoutEmpeleado();
+    header("Location: /public/index.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = [
+        'id_persona' => $_SESSION['user_id'],
+        'Nombre' => $_POST['Nombre'],
+        'ApellidoMaterno' => $_POST['ApellidoMaterno'],
+        'ApellidoPaterno' => $_POST['ApellidoPaterno'],
+        'Correo' => $_POST['Correo'],
+        'Telefono' => $_POST['Telefono']
+    ];
+
+    $result = $controller->updateProfile($data);
+
+    if ($result) {
+        echo "Perfil actualizado exitosamente.";
+        // Recargar los datos del perfil
+        $profile = $controller->getProfile($_SESSION['user_id']);
+    } else {
+        echo "Error al actualizar el perfil.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,73 +47,67 @@
 <body>
 <?php include '../templates/headerWorker.php'; ?>
 
+<h1 class="title">Configuración de la Cuenta Trabajador</h1>
 
-    <h1 class="title">Configuración de la Cuenta Trabajador</h1>
+<div class="container">
+    <form action="editarPerfil.php" method="POST">
+        <div class="form-group">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" id="Nombre" name="Nombre" value="<?php echo htmlspecialchars($profile['nombre']); ?>">
+            <!-- <button type="button" class="edit-btn">Editar</button> -->
+        </div>
 
-    <div class="container">
-    <form>
-            <div class="form-group">
-                <label for="Nombre">Nombre:</label>
-                <input type="text" id="apellidoP" name="apellidoP" value="Nombre" disabled>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
+        <div class="form-group">
+            <label for="ApellidoPaterno">Apellido Paterno:</label>
+            <input type="text" id="ApellidoPaterno" name="ApellidoPaterno" value="<?php echo htmlspecialchars($profile['apellidopaterno']); ?>">
+            <!-- <button type="button" class="edit-btn">Editar</button> -->
+        </div>
 
-            <div class="form-group">
-            <label for="apellidoP">Apellido paterno:</label>
-            <input type="text" id="apellidoP" name="apellidoP" value="Apellido Paterno" disable>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
+        <div class="form-group">
+            <label for="ApellidoMaterno">Apellido Materno:</label>
+            <input type="text" id="ApellidoMaterno" name="ApellidoMaterno" value="<?php echo htmlspecialchars($profile['apellidomaterno']); ?>">
+            <!-- <button type="button" class="edit-btn">Editar</button> -->
+        </div>
 
-            <div class="form-group">
-                <label for="apellidoM">Apellido materno:</label>
-                <input type="text" id="apellidoM" name="apellidoM" value="Apellido Materno" disable>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
+        <div class="form-group">
+            <label for="Correo">Correo Electrónico:</label>
+            <input type="email" id="Correo" name="Correo" value="<?php echo htmlspecialchars($profile['correo']); ?>">
+            <!-- <button type="button" class="edit-btn">Editar</button> -->
+        </div>
 
-            <div class="form-group">
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" value="usuario@correo.com" disabled>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
+        <div class="form-group">
+            <label for="Telefono">Teléfono:</label>
+            <input type="tel" id="Telefono" name="Telefono" value="<?php echo htmlspecialchars($profile['telefono']); ?>">
+            <!-- <button type="button" class="edit-btn">Editar</button> -->
+        </div>
+        <br>
 
-            <div class="form-group">
-                <label for="phone">Teléfono:</label>
-                <input type="tel" id="phone" name="phone" value="123-456-7890" disabled>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
-            
-            <div class="form-group">
-                <label for="address">Dirección:</label>
-                <input type="text" id="address" name="address" value="Calle Principal #123" disabled>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" value="password" disabled>
-                <button type="button" class="edit-btn">Editar</button>
-            </div>
-
-        <button type="submit">Confirmar cambios</button>
+        <button type="submit" class="edit-btn">Confirmar cambios</button>
     </form>
-    </div>
+    <form action="" method="POST">
+        <input type="hidden" name="logout" value="true">
+        <div class="form-buttons">
+            <button type="submit" class="form-buttons" style="background-color: rebeccapurple;">Cerrar Sesión</button>
+        </div>
+    </form>
+</div>
 
-    <?php include '../templates/footer.php'; ?>
-    
+<?php include '../templates/footer.php'; ?>
 
-    <script>
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                let inputField = this.previousElementSibling;
-                if (inputField.disabled) {
-                    inputField.disabled = false;
-                    inputField.focus();
-                    this.textContent = 'Guardar';
-                } else {
-                    inputField.disabled = true;
-                    this.textContent = 'Editar';
-                }
-            });
+<script>
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            let inputField = this.previousElementSibling;
+            if (inputField.disabled) {
+                inputField.disabled = false;
+                inputField.focus();
+                this.textContent = 'Guardar';
+            } else {
+                inputField.disabled = true;
+                this.textContent = 'Editar';
+            }
         });
-    </script>
+    });
+</script>
 </body>
+</html>

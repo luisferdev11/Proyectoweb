@@ -1,10 +1,7 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../includes/session.php';
+checkSessionAndRole('cliente');
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /public/auth/login.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>

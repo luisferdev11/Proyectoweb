@@ -1,3 +1,9 @@
+<?php
+    require_once __DIR__ . '/../../includes/session.php';
+    checkSessionAndRole('empleado');
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,15 +22,12 @@
         <a href="servicios.php" class="box">
             <h2>Servicios</h2>
         </a>
-        <a href="configuracion.php" class="box">
+        <a href="editarPerfil.php" class="box">
             <h2>Configuración de la cuenta</h2>
         </a>
-        <a href="usosuministros.php" class="box">
-            <h2>Uso de suministro</h2>
-        </a>
-        <a href="disponibilidad.php" class="box">
+        <!-- <a href="disponibilidad.php" class="box">
             <h2>Disponibilidad</h2>
-        </a>
+        </a> -->
         <a href="reportes.php" class="box">
             <h2>Reportes</h2>
         </a>

@@ -6,6 +6,9 @@ RUN apt-get update \
     && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo_pgsql pgsql
 
+# Copia los archivos de configuración de PHP
+COPY php.ini /usr/local/etc/php/
+
 # Copia los archivos de tu aplicación al contenedor
 COPY backend /var/www/html
 

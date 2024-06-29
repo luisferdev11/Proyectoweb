@@ -10,6 +10,7 @@ class Cliente extends Persona {
     private string $table_peticion_metodo_pago = 'PeticionMetodoPago';
     private string $table_servicio = 'Servicio';
     private string $table_empleado = 'Empleado';
+    public int $id_cliente;
 
     public function __construct(PDO $db) {
         parent::__construct($db);
@@ -22,6 +23,7 @@ class Cliente extends Persona {
             $stmt->bindParam(':id_persona', $this->id_persona);
 
             if ($stmt->execute()) {
+                $this->id_cliente = $this->conn->lastInsertId();
                 return true;
             }
 

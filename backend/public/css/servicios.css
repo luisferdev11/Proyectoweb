@@ -1,0 +1,77 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Service box styles */
+.service-box {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.service-box h2 {
+  margin-top: 0;
+  color: #007bff;
+  font-size: 20px;
+}
+
+.service-box p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.service-box p strong {
+  color: #333;
+}
+
+/* Message styles */
+.message {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .service-box h2 {
+    font-size: 18px;
+  }
+}
