@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../controllers/ClienteController.php';
 require_once __DIR__ . '/../../controllers/EmpleadoController.php';
+require_once __DIR__ . '/../../controllers/AdministradorController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
@@ -20,6 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $controller->loginEmpleado($correo, $contrasena);
         if ($result) {
             header("Location: /public/worker/home.php");
+            exit();
+        }
+    } elseif ($role == 'administrador') {
+        $controller = new AdministradorController();
+        $result = $controller->loginAdministrador($correo, $contrasena);
+        if ($result) {
+            header("Location: /public/admin/home.php");
             exit();
         }
     }
@@ -58,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <select id="role" name="role">
                         <option value="cliente">Cliente</option>
                         <option value="empleado">Empleado</option>
+                        <option value="administrador">Administrador</option>
                     </select>
                     
                     <button type="submit">Iniciar Sesión</button>
