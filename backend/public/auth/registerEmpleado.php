@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="right-section">
             <div class="form-box">
                 <h2 class="title">Registro de Empleado</h2>
-                <a href="/public/auth/loginEmpleado.php">Ya tienes una cuenta?, inicia sesión</a>
+                <a href="/public/auth/login.php">Ya tienes una cuenta?, inicia sesión</a>
                 <br>
                 <br>
                 <form action="registerEmpleado.php" method="POST">
@@ -95,6 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <?php // include '../templates/footer.php'; ?>
+    <?php  include '../templates/footer.php'; ?>
 </body>
 </html>

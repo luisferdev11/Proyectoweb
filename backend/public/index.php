@@ -9,7 +9,7 @@
         header("Location: /public/worker/home.php");
         exit();
     }
-    if ($_SESSION['user_role'] == "admin") {
+    if ($_SESSION['user_role'] == "administrador") {
         header("Location: /public/admin/home.php");
         exit();
     }
@@ -90,3 +90,6 @@ Recomiendo altamente a Plomeros SOS por su rapidez, profesionalismo y precios ju
     </div>
 
 <?php include 'templates/footer.php'; ?>
+    <script src="/public/js/scripts.js"></script>
+</body>
+</html>
